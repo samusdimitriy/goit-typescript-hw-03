@@ -16,23 +16,16 @@ class Person {
 
 abstract class House {
   public door: boolean = false;
-  public key: Key;
   private tenants: Person[] = [];
 
-  constructor(key: Key) {
-    this.key = key;
-  }
+  constructor(public key: Key) {}
 
   comeIn(person: Person): void {
     if (this.door) {
-      if (this.key.getSignature() === person.getKey().getSignature()) {
-        this.tenants.push(person);
-        console.log("Welcome!");
-      } else {
-        console.log("Invalid key!");
-      }
+      this.tenants.push(person);
+      console.log("Welcome!");
     } else {
-      console.log("The door is closed!");
+      console.log("Invalid key!");
     }
   }
 
@@ -40,10 +33,6 @@ abstract class House {
 }
 
 class MyHouse extends House {
-  constructor(key: Key) {
-    super(key);
-  }
-
   openDoor(key: Key): void {
     if (this.key.getSignature() === key.getSignature()) {
       this.door = true;
